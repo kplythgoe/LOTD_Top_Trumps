@@ -1,0 +1,25 @@
+LOTR TOP TRUMPS PLAN
+----------------------------
+
+Going to use OOP --> much easier to store the attributes of each card
+Ask user how many players
+        Deck will be divided into this many
+        Only one human player the others will be AI
+
+How should it play?
+        Will the AI always choose their highest attribute?
+                Won't work because 9 resilience is very good but age 26 isn't very good
+                AI needs to either choose their state by random or some kind of rating scale needs to be put in place
+
+========================================================================================
+Do below tasks before futher planning
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+Start by creating and linking files
+Will need a class that creates a card object
+Will need a class that stored card objects in a vector
+Will then read all cards and stats from file and make into card objects to then put into the cards vector --> This will be the starting deck
+------------------------------------------------------------------------------------------------------------------------------------------------------
+Notes on this section
+------------------------------------------------------------------------------------------------------------------------------------------------------
+Need a different way to represent height as 5ft 10 is bigger than 5ft 1 but 5.10 is the same as 5.1 - present by feet but convert to cm?
+========================================================================================
