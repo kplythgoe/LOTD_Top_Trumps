@@ -11,15 +11,51 @@ How should it play?
                 Won't work because 9 resilience is very good but age 26 isn't very good
                 AI needs to either choose their state by random or some kind of rating scale needs to be put in place
 
+
+
+
 ========================================================================================
 Do below tasks before futher planning
 -------------------------------------------------------------------------------------------------------------------------------------------------------
-Start by creating and linking files
-Will need a class that creates a card object
-Will need a class that stored card objects in a vector
-Will then read all cards and stats from file and make into card objects to then put into the cards vector --> This will be the starting deck
+Start by creating and linking files --> Done
+Will need a class that creates a card object --> Done
+Will need a class that stores card objects in a vector --> Done
+Will then read all cards and stats from file and make into card objects to then put into the cards vector --> This will be the starting deck --> Done
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 Notes on this section
 ------------------------------------------------------------------------------------------------------------------------------------------------------
-Need a different way to represent height as 5ft 10 is bigger than 5ft 1 but 5.10 is the same as 5.1 - present by feet but convert to cm?
+Need a different way to represent height as 5ft 10 is bigger than 5ft 1 but 5.10 is the same as 5.1 - present by feet but convert to cm? --> done
+Character info was way to long to be included when the cards are shown --> already using a lot of space, may need to rethink
+Character info can go into a different section where users can actively look at character info should they want to --> accessible from main menu
+========================================================================================
+
+
+
+========================================================================================
+Do below tasks before futher planning
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+Need to take a user input for the user's name and how many AI opponents they want to face
+Need to share the deck out between how many players are playing the game
+Random number generator to decide who is going to go first
+Think about how the information is going to be output by the user
+    ^ Could potentially list all attibutes of each card with the winning attribute highlighted green, losing attribute highlighted red
+Should look something like this (but with colours)
+
+The attribute chosen is: Magic
+
+Name                        Culture         Resistance to Ring      Age     Resilience      Ferocity        Magic               Height
+------------------------------------------------------------------------------------------------------------------------------------------------------
+(user) Aragorn           Human                                  2          88                    9              62              15(red)             6'4"
+(Player 1) Gandalf      Wizard                                  3       2018                  10             67              20(green)         5'9"
+(Player 2) Frodo         Hobbit                                  1           50                   7              30                4(red)             3'1"
+------------------------------------------------------------------------------------------------------------------------------------------------------
+Player 1 wins this round - All cards go to Player 1
+
+Press any key to continue . . .
+------------------------------------------------------------------------------------------------------------------------------------------------------
+Notes on this section
+------------------------------------------------------------------------------------------------------------------------------------------------------
+Need to do a for loop to create pack objects based on how many players are playing each needing different names
+Need to find out how to change text colour. Done it before so I know it is possible
+Need to create a seperate pack object to store the current round of cards. Iterate through and push into winners pack after round
 ========================================================================================
