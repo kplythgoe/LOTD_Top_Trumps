@@ -56,6 +56,7 @@ Press any key to continue . . .
 Notes on this section
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 Need to do a for loop to create pack objects based on how many players are playing each needing different names
+    ^ Have to push each into a vector to create number of Deck objects. Could be useful later by calling them by index
 Need to find out how to change text colour. Done it before so I know it is possible
 Need to create a seperate pack object to store the current round of cards. Iterate through and push into winners pack after round
 ========================================================================================

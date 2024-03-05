@@ -35,3 +35,7 @@ void Card::displayCard() const {
     cout << endl;
 }
 
+string Card::getName() const {
+    return name;
+}
+

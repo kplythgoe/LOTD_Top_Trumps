@@ -22,6 +22,7 @@ public:
     Card(const Card &source);
     ~Card();
     void displayCard() const;
+    string getName() const;
 
 };
 

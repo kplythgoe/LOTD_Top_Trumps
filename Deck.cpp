@@ -24,5 +24,15 @@ void Deck::displayCards() const {
     }
 }
 
+void Deck::show(vector <string> namesVec) const {
+    for (const auto &card : pack) {
+        namesVec.push_back(card.getName());
+    }
+}
+
+int Deck::sizeOfDeck() const {
+    return pack.size();
+}
+
 
 
