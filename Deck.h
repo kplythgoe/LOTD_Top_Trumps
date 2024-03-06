@@ -13,10 +13,11 @@ public:
     Deck();
     ~Deck();
     void sayHello();
-    void addCards(string name, string culture, float ringResistance, int age, int resilience, int ferocity, int magic, int feet, int inches, float height, string info);
+    void addCards(int id, string name, string culture, float ringResistance, int age, int resilience, int ferocity, int magic, int feet, int inches, float height, string info);
     void displayCards() const;
-    void show(vector <string> namesVec) const;
+    void pushCard(Deck playerDeck);
     int sizeOfDeck() const;
+    void showTop() const;
 
 };
 

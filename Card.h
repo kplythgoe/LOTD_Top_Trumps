@@ -6,6 +6,7 @@ using namespace std;
 
 class Card
 {
+    int id;
     string name;
     string culture;
     float ringResistance;
@@ -18,7 +19,7 @@ class Card
     float height;
     string info;
 public:
-    Card(string name, string culture, float ringResistance, int age, int resilience, int ferocity, int magic, int feet, int inches, float height, string info);
+    Card(int id, string name, string culture, float ringResistance, int age, int resilience, int ferocity, int magic, int feet, int inches, float height, string info);
     Card(const Card &source);
     ~Card();
     void displayCard() const;

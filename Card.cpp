@@ -4,12 +4,12 @@
 
 using namespace std;
 
-Card::Card(string name, string culture, float ringResistance, int age, int resilience, int ferocity, int magic, int feet, int inches, float height, string info)
-    :name(name), culture(culture), ringResistance(ringResistance), age(age), resilience(resilience), ferocity(ferocity), magic(magic), feet(feet), inches(inches), height(height), info(info){
+Card::Card(int id, string name, string culture, float ringResistance, int age, int resilience, int ferocity, int magic, int feet, int inches, float height, string info)
+    :id(id), name(name), culture(culture), ringResistance(ringResistance), age(age), resilience(resilience), ferocity(ferocity), magic(magic), feet(feet), inches(inches), height(height), info(info){
 }
 
 Card::Card(const Card &source)
-    :Card(source.name, source.culture, source.ringResistance, source.age, source.resilience, source.ferocity, source.magic, source.feet, source.inches, source.height, source.info){
+    :Card(source.id, source.name, source.culture, source.ringResistance, source.age, source.resilience, source.ferocity, source.magic, source.feet, source.inches, source.height, source.info){
 }
 
 Card::~Card()
@@ -17,23 +17,17 @@ Card::~Card()
 }
 
 void Card::displayCard() const {
-    cout << setw(25) << left << "Name: " << name << endl;
-    cout << setfill('-') << setw(40) << "" << setfill(' ') << endl;
-    cout << setw(25) << "Culture: " << culture << endl;
-    cout << setfill('-') << setw(40) << "" << setfill(' ') << endl;
-    cout << setw(25) << "Resistance to Ring: " << ringResistance << endl;
-    cout << setfill('-') << setw(40) << "" << setfill(' ') << endl;
-    cout << setw(25) << "Age: " << age << endl;
-    cout << setfill('-') << setw(40) << "" << setfill(' ') << endl;
-    cout << setw(25) << "Resilience: " << resilience << endl;
-    cout << setfill('-') << setw(40) << "" << setfill(' ') << endl;
-    cout << setw(25) << "Ferocity: " << ferocity << endl;
-    cout << setfill('-') << setw(40) << "" << setfill(' ') << endl;
-    cout << setw(25) << "Magic: " << magic << endl;
-    cout << setfill('-') << setw(40) << "" << setfill(' ') << endl;
-    cout << setw(25) << "Height: " << feet << "'" << inches << "\"" << endl;
-    cout << endl;
+    cout << setw(20) << left << name;
+    cout << setw(30) << culture;
+    cout << setw(16) << right << ringResistance;
+    cout << setw(8) << age;
+    cout << setw(14) << resilience;
+    cout << setw(14) << ferocity;
+    cout << setw(8) << magic;
+    cout << setw(5) << feet << "'" << inches << "\"" << endl;
 }
+
+
 
 string Card::getName() const {
     return name;

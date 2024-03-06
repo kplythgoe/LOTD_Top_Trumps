@@ -34,10 +34,10 @@ Character info can go into a different section where users can actively look at 
 ========================================================================================
 Do below tasks before futher planning
 -------------------------------------------------------------------------------------------------------------------------------------------------------
-Need to take a user input for the user's name and how many AI opponents they want to face
-Need to share the deck out between how many players are playing the game
-Random number generator to decide who is going to go first
-Think about how the information is going to be output by the user
+Need to take a user input for the user's name and how many AI opponents they want to face --> Done
+Need to share the deck out between how many players are playing the game --> Done
+Random number generator to decide who is going to go first --> Done
+Think about how the information is going to be output by the user --> Done
     ^ Could potentially list all attibutes of each card with the winning attribute highlighted green, losing attribute highlighted red
 Should look something like this (but with colours)
 
@@ -56,7 +56,7 @@ Press any key to continue . . .
 Notes on this section
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 Need to do a for loop to create pack objects based on how many players are playing each needing different names
-    ^ Have to push each into a vector to create number of Deck objects. Could be useful later by calling them by index
+    ^ Have to push each into a vector to create number of Deck objects. Could be useful later by calling them by index --> Did it a different way
 Need to find out how to change text colour. Done it before so I know it is possible
 Need to create a seperate pack object to store the current round of cards. Iterate through and push into winners pack after round
 ========================================================================================
