@@ -1,5 +1,6 @@
 #include "Deck.h"
 #include <iostream>
+#include <vector>
 
 Deck::Deck()
 {
@@ -39,5 +40,13 @@ void Deck::showTop() const {
     }
 }
 
+int Deck::test() const {
+    for (const auto &card : pack) {
+        return card.getRingResistance();
+    }
+    return 0;
+}
 
-
+void Deck::remove() {
+    pack.erase(pack.begin());
+}

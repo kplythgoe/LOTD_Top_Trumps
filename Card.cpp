@@ -8,7 +8,7 @@ Card::Card(int id, string name, string culture, float ringResistance, int age, i
     :id(id), name(name), culture(culture), ringResistance(ringResistance), age(age), resilience(resilience), ferocity(ferocity), magic(magic), feet(feet), inches(inches), height(height), info(info){
 }
 
-Card::Card(const Card &source)
+Card::Card(Card &source)
     :Card(source.id, source.name, source.culture, source.ringResistance, source.age, source.resilience, source.ferocity, source.magic, source.feet, source.inches, source.height, source.info){
 }
 
@@ -29,7 +29,27 @@ void Card::displayCard() const {
 
 
 
-string Card::getName() const {
-    return name;
+int Card::getRingResistance() const {
+        return ringResistance;
+}
+
+int Card::getAge() const {
+    return age;
+}
+
+int Card::getResilience() const {
+    return resilience;
+}
+
+int Card::getFerocity() const {
+    return ferocity;
+}
+
+int Card::getMagic() const {
+    return magic;
+}
+
+float Card::getHeight() const {
+    return height;
 }
 

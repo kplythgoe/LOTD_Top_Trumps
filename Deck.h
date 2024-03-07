@@ -18,6 +18,9 @@ public:
     void pushCard(Deck playerDeck);
     int sizeOfDeck() const;
     void showTop() const;
+    int getAttribute(int attNum);
+    int test() const;
+    void remove();
 
 };
 

@@ -24,6 +24,7 @@ int main() {
     
     // CREATING DECK AND READING AND INSERTING INTO DECK FROM FILE
     Deck cards;
+    vector<string> aiPlayers {"John", "Fred", "Billy", "Rachael", "Maeve", "Houghie"};
     srand((unsigned) time(0));
     int randomNumber = 0;
     bool dealing = false;
@@ -112,13 +113,54 @@ int main() {
     map <string, int> attributeChoice;
     attributeChoice["Ring Resistance"] = 1; attributeChoice["Age"] = 2; attributeChoice["Resilience"] = 3; attributeChoice["Ferocity"] = 4; attributeChoice["Magic"] = 5; attributeChoice["Height"] = 6;
     randomNumber = (rand() % 6) + 1;
+    string chosenAttribute;
     cout << "\nThe chosen attribute is: ";
     map<string, int>::iterator it = attributeChoice.begin();
     while (it != attributeChoice.end()) {
         if (randomNumber == it->second) {
+            chosenAttribute = it->first;
             cout << it->first << endl;
         }
         it++;
+    }
+    cout << "\nLet's see the combatants!\n" << endl;
+    system("pause");
+    system("cls");
+    cout << "The chosen attribute is: " << chosenAttribute << endl << endl;
+    cout << setw(15) << left << "Player";
+    cout << setw(20) << "Name";
+    cout << setw(30) << "Culture";
+    cout << setw(16) << right << "Ring Resistance";
+    cout << setw(8) << "Age";
+    cout << setw(14) << "Resilience";
+    cout << setw(14) << "Ferocity";
+    cout << setw(8) << "Magic";
+    cout << setw(8) << "Height" << endl;
+    cout << setfill('=') << setw(133) << "" << setfill(' ') << endl;
+    for (int i = 0; i < players; i++) {
+        cout << setw(15) << left << aiPlayers[i];
+        allPlayers[i].showTop();
+//        allPlayers[i].remove();
+        //allPlayers[i] --> remove from current deck and move to temp deck
+        cout << setfill('-') << setw(133) << "" << setfill(' ') << endl;
+    }
+    cout << "\nThe winner is this round is: " << "card name" << endl;
+    cout << "\nWinning player takes all the spoils!" << endl;
+    system("pause");
+    system("cls");
+    for (int i = 0; i < players; i++) {
+        cout << "PLAYER " << i + 1 << "CARDS" << endl;
+        cout << "======================" << endl;
+        allPlayers[i].displayCards();
+        allPlayers[i].remove();
+        cout << endl;
+    }
+    cout << endl << endl << endl;
+    for (int i = 0; i < players; i++) {
+        cout << "PLAYER " << i + 1 << "CARDS" << endl;
+        cout << "======================" << endl;
+        allPlayers[i].displayCards();
+        cout << endl;
     }
     return 0;
 }
