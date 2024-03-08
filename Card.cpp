@@ -8,7 +8,7 @@ Card::Card(int id, string name, string culture, float ringResistance, int age, i
     :id(id), name(name), culture(culture), ringResistance(ringResistance), age(age), resilience(resilience), ferocity(ferocity), magic(magic), feet(feet), inches(inches), height(height), info(info){
 }
 
-Card::Card(Card &source)
+Card::Card(const Card &source)
     :Card(source.id, source.name, source.culture, source.ringResistance, source.age, source.resilience, source.ferocity, source.magic, source.feet, source.inches, source.height, source.info){
 }
 
@@ -17,39 +17,13 @@ Card::~Card()
 }
 
 void Card::displayCard() const {
-    cout << setw(20) << left << name;
+    cout << setw(30) << left << name;
     cout << setw(30) << culture;
     cout << setw(16) << right << ringResistance;
     cout << setw(8) << age;
     cout << setw(14) << resilience;
     cout << setw(14) << ferocity;
     cout << setw(8) << magic;
-    cout << setw(5) << feet << "'" << inches << "\"" << endl;
-}
-
-
-
-int Card::getRingResistance() const {
-        return ringResistance;
-}
-
-int Card::getAge() const {
-    return age;
-}
-
-int Card::getResilience() const {
-    return resilience;
-}
-
-int Card::getFerocity() const {
-    return ferocity;
-}
-
-int Card::getMagic() const {
-    return magic;
-}
-
-float Card::getHeight() const {
-    return height;
+    cout << setw(7) << right << feet << "'" << inches << "\"" << endl;
 }
 
