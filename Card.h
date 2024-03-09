@@ -12,7 +12,7 @@ class Card
     int id, age, resilience, ferocity, magic, feet, inches;
     
 public:
-    Card(int id, string name, string culture, float ringResistance, int age, int resilience, int ferocity, int magic, int feet, int inches, float height, string info);
+    Card(string name, string culture, string info, float ringResistance, float height, int id, int age, int resilience, int ferocity, int magic, int feet, int inches);
     Card(const Card &source);
     ~Card();
     void displayCard() const;

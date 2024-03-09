@@ -12,10 +12,11 @@ class Deck
 public:
     Deck();
     ~Deck();
-    void addCards(int id, string name, string culture, float ringResistance, int age, int resilience, int ferocity, int magic, int feet, int inches, float height, string info);
+    void addCards(string name, string culture, string info, float ringResistance, float height, int id, int age, int resilience, int ferocity, int magic, int feet, int inches);
     void displayCards() const;
     int sizeOfDeck() const;
-    
+    vector<Card> getVector();
+    void deal(Deck mainPack, int randomNumber);
 };
 
 #endif // __DECK_H__

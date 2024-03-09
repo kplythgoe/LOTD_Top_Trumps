@@ -21,9 +21,64 @@ void pushCards(Deck &pack);
 
 int main() {
     srand((unsigned) time(0));
+    int randomNumber;
+    int cnt;
+    vector <int> cardsUsed;
+    int players = 5; // for now
     Deck cards;
     vector<string> aiPlayers {"John", "Fred", "Billy", "Rachael", "Maeve", "Houghie"};
     pushCards(cards);
+    cards.displayCards();
+    cout << endl << endl;
+    // DEAL THE CARDS - BY TAKING A RANDOM CARD FROM cards AND PUSHING TO A PLAYER DECK
+    
+    // CREATING DECKS BASED ON HOW MANY PLAYERS
+    vector <Deck> allPlayers;
+    for (int i = 0; i < players; i++) {
+        Deck player;
+        allPlayers.push_back(player);
+    }
+    // DEALING CARDS FROM CARDS DECK
+    for (int i = 0; i < cards.sizeOfDeck()/players; i++) {
+        for (int j = 0; j < players; j++) {
+            randomNumber = (rand() % cards.sizeOfDeck()) + 0;
+            cnt = count(cardsUsed.begin(), cardsUsed.end(), randomNumber);
+            while (cnt > 0) {
+                randomNumber = (rand() % cards.sizeOfDeck()) + 0;
+                cnt = count(cardsUsed.begin(), cardsUsed.end(), randomNumber);
+            }
+            cardsUsed.push_back(randomNumber);
+            allPlayers[j].deal(cards, randomNumber);
+        }
+    }
+    system("pause");
+    system("cls");
+    cout << "PLAYER 1 CARDS" << endl;
+    cout << "==================" << endl;
+    allPlayers[0].displayCards();
+    cout << endl << endl;
+    cout << "PLAYER 2 CARDS" << endl;
+    cout << "==================" << endl;
+    allPlayers[1].displayCards();
+    cout << endl << endl;
+    cout << "PLAYER 3 CARDS" << endl;
+    cout << "==================" << endl;
+    allPlayers[2].displayCards();
+    cout << endl << endl;
+    cout << "PLAYER 4 CARDS" << endl;
+    cout << "==================" << endl;
+    allPlayers[3].displayCards();
+    cout << endl << endl;
+    cout << "PLAYER 5 CARDS" << endl;
+    cout << "==================" << endl;
+    allPlayers[4].displayCards();
+    cout << endl << endl;
+    system("pause");
+    system("cls");
+    allPlayers[0].displayCards();
+    cout << endl << endl;
+    system("pause");
+    system("cls");
     cards.displayCards();
     return 0;
 }
@@ -101,7 +156,7 @@ void pushCards(Deck &pack) {
         getline(inputString, tempString, ',');
         height = atof(tempString.c_str());
             
-        pack.addCards(id, name, culture, ringResistance, age, resilience, ferocity, magic, feet, inches, height, info);
+        pack.addCards(name, culture, info, ringResistance, height, id, age, resilience, ferocity, magic, feet, inches);
             
         line = "";
 
