@@ -44,3 +44,40 @@ void Deck::deal(Deck mainPack, int randomNumber) {
     }
 }
 
+void Deck::inPlay(Deck playerPack) {
+    vector player = playerPack.getVector();
+    pack.push_back(player.front());
+}
+
+float Deck::battle(int randomNumber) {
+    // random number 0 -5 - each number represents an attribute
+    if (randomNumber == 0) {
+        // get ringResistance - returns float
+        return pack.front().getRingResistance();
+    }
+    else if (randomNumber == 1) {
+        // get age - returns int
+        return pack.front().getAge();
+    }
+    else if (randomNumber == 2) {
+        // get resilience - returns int
+        return pack.front().getResilience();
+    }
+    else if (randomNumber == 3) {
+        // get ferocity - returns int
+        return pack.front().getFerocity();
+    }
+    else if (randomNumber == 4) {
+        // get magic - returns int
+        return pack.front().getMagic();
+    }
+    else {
+        // get height - returns float
+        return pack.front().getHeight();
+    }
+}
+
+void Deck::topCard() {
+    pack.front().displayCard();
+}
+

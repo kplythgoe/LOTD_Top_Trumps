@@ -27,3 +27,27 @@ void Card::displayCard() const {
     cout << setw(7) << right << feet << "'" << inches << "\"" << endl;
 }
 
+float Card::getRingResistance() const {
+    return ringResistance;
+}
+
+int Card::getAge() const {
+    return age;
+}
+
+int Card::getResilience() const {
+    return resilience;
+}
+
+int Card::getFerocity() const {
+    return ferocity;
+}
+
+int Card::getMagic() const {
+    return magic;
+}
+
+float Card::getHeight() const {
+    return height;
+}
+

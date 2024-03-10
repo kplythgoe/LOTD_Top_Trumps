@@ -18,6 +18,7 @@ void rules();
 void enterChoiceMessage();
 void choiceValidation(int &userChoice);
 void pushCards(Deck &pack);
+void headerLayout();
 
 int main() {
     srand((unsigned) time(0));
@@ -53,33 +54,43 @@ int main() {
     }
     system("pause");
     system("cls");
-    cout << "PLAYER 1 CARDS" << endl;
-    cout << "==================" << endl;
-    allPlayers[0].displayCards();
+    // RANDOMLY CHOSING WHICH PLAYER WILL GO FIRST (then will go in order)
+    randomNumber = (rand() % players) + 0;
+    cout << "Player " << randomNumber + 1 << " will go first and their card is:\n" << endl;
+    // PLAY THE TOP CARD FROM PLAYERS' HANDS AND CHOSING ATTRIBUTE PLAYED
+    headerLayout();
+    allPlayers[randomNumber].topCard();
     cout << endl << endl;
-    cout << "PLAYER 2 CARDS" << endl;
-    cout << "==================" << endl;
-    allPlayers[1].displayCards();
+    string attribute;
+    vector <string> attributes {"Resistance to Ring", "Age", "Resiliance", "Ferocity", "Magic", "Height"};
+    randomNumber = (rand() % 6) + 0;
+    attribute = attributes[randomNumber];
+    cout << "The chosen attribute is: " << attribute;
     cout << endl << endl;
-    cout << "PLAYER 3 CARDS" << endl;
-    cout << "==================" << endl;
-    allPlayers[2].displayCards();
-    cout << endl << endl;
-    cout << "PLAYER 4 CARDS" << endl;
-    cout << "==================" << endl;
-    allPlayers[3].displayCards();
-    cout << endl << endl;
-    cout << "PLAYER 5 CARDS" << endl;
-    cout << "==================" << endl;
-    allPlayers[4].displayCards();
-    cout << endl << endl;
+    cout << "Let's see our combatants!\n" << endl;
     system("pause");
     system("cls");
-    allPlayers[0].displayCards();
+    cout << "The chosen attribute is: " << attribute;
     cout << endl << endl;
+    headerLayout();
+    Deck round;
+    for (int i = 0; i < players; i++) {
+        allPlayers[i].topCard();
+        // PUSHING PLAYED CARDS INTO ROUND DECK
+        round.inPlay(allPlayers[i]);
+    }
     system("pause");
     system("cls");
-    cards.displayCards();
+    // COMPARING THE ATTRIBUTES AND FINDING A WINNER
+    vector <float> stats;
+    for (int i = 0; i < round.sizeOfDeck(); i++) {
+        stats.push_back(allPlayers[i].battle(randomNumber));
+    }
+    
+    for (auto stat : stats) {
+        cout << stat << endl;
+    }
+
     return 0;
 }
 
@@ -161,4 +172,16 @@ void pushCards(Deck &pack) {
         line = "";
 
     }
+}
+
+void headerLayout() {
+    cout << setw(30) << left << "Name";
+    cout << setw(30) << "Culture";
+    cout << setw(16) << right << "Ring Resistance";
+    cout << setw(8) << "Age";
+    cout << setw(14) << "Resilience";
+    cout << setw(14) << "Ferocity";
+    cout << setw(8) << "Magic";
+    cout << setw(10) << "Height" << endl;
+    cout << setfill('=') << setw(130) << "" << setfill(' ') << endl;
 }

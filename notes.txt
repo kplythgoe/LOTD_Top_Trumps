@@ -1,0 +1,24 @@
+// COMPARING THE ATTRIBUTES AND FINDING A WINNER
+
+For example the attribute is age and we have 
+
+Gandalf     2018
+Aragorn     88
+Arwen       2777
+Gollum      589
+Frodo        50
+
+Arwen is the winner but how to get to that conclusion
+
+Pass in randomNumber and use vector of attributes?
+Example: randomNumber = 2
+vector <string> attributes {"ringResistance", "age", "resiliance", "ferocity", "magic", "height"};
+
+NEED TO PUSH CARDS IN PLAY INTO A NEW DECK --> Do that first
+
+finding out who wins
+
+iterate through vector with stats in
+find out what the highest card is
+check if there are any other cards of the same value --> result will be draw
+find the position in the vector of the highest card --> This is the winner

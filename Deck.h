@@ -17,6 +17,9 @@ public:
     int sizeOfDeck() const;
     vector<Card> getVector();
     void deal(Deck mainPack, int randomNumber);
+    void inPlay(Deck playerPack);
+    float battle(int randomNumber);
+    void topCard();
 };
 
 #endif // __DECK_H__

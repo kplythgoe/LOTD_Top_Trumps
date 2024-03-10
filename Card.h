@@ -16,6 +16,12 @@ public:
     Card(const Card &source);
     ~Card();
     void displayCard() const;
+    float getRingResistance() const;
+    int getAge() const;
+    int getResilience() const;
+    int getFerocity() const;
+    int getMagic() const;
+    float getHeight() const;
 
 };
 
