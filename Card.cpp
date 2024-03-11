@@ -9,7 +9,7 @@ Card::Card(string name, string culture, string info, float ringResistance, float
 }
 
 Card::Card(const Card &source)
-    :Card(source.name, source.culture, source.info, source.ringResistance, source.height, source.id, source.age, source.resilience, source.ferocity, source.magic, source.inches, source.feet){
+    :Card(source.name, source.culture, source.info, source.ringResistance, source.height, source.id, source.age, source.resilience, source.ferocity, source.magic, source.feet, source.inches){
 }
 
 Card::~Card()
@@ -24,7 +24,7 @@ void Card::displayCard() const {
     cout << setw(14) << resilience;
     cout << setw(14) << ferocity;
     cout << setw(8) << magic;
-    cout << setw(7) << right << feet << "'" << inches << "\"" << endl;
+    cout << setw(7) << feet << "'" << inches << "\"" << endl;
 }
 
 float Card::getRingResistance() const {

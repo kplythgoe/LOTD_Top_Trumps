@@ -19,6 +19,7 @@ public:
     void deal(Deck mainPack, int randomNumber);
     void inPlay(Deck playerPack);
     float battle(int randomNumber);
+    void removeCard();
     void topCard();
 };
 

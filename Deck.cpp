@@ -81,3 +81,7 @@ void Deck::topCard() {
     pack.front().displayCard();
 }
 
+void Deck::removeCard() {
+    pack.erase(pack.begin());
+}
+

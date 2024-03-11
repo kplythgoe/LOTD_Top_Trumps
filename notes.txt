@@ -1,5 +1,7 @@
 // COMPARING THE ATTRIBUTES AND FINDING A WINNER
 
+Cards must be removed from players deck when they have been played
+
 For example the attribute is age and we have 
 
 Gandalf     2018
