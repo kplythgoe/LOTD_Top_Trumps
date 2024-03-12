@@ -28,19 +28,25 @@ int main() {
     int randomNumber;
     int playerTurn;
     int cnt;
+    int roundDeckSize;
+    int playerLoop;
     vector <int> cardsUsed;
     vector <float> stats;
     int players = 5; // for now
     Deck cards;
     Deck round;
-    vector<string> aiPlayers {"John", "Fred", "Billy", "Rachael", "Maeve", "Houghie"};
+    vector<string> aiNames {"John", "Fred", "Billy", "Rachael", "Maeve", "Houghie"};
+    vector<string> aiPlayers;
     bool winner = false;
     bool startGame = true;
     pushCards(cards);
     cards.displayCards();
     cout << endl << endl;
+    // CREATING VECTOR OF AI PLAYERS
+    for (int i = 0; i < players; i++) {
+        aiPlayers.push_back(aiNames[i]);
+    }
     // DEAL THE CARDS - BY TAKING A RANDOM CARD FROM cards AND PUSHING TO A PLAYER DECK
-    
     // CREATING DECKS BASED ON HOW MANY PLAYERS
     vector <Deck> allPlayers;
     for (int i = 0; i < players; i++) {
@@ -64,16 +70,16 @@ int main() {
     system("cls");
     // RANDOMLY CHOSING WHICH PLAYER WILL GO FIRST (then will go in order)
     playerTurn = (rand() % players) + 0;
-    playerTurn = 4;
     // PLAY THE TOP CARD FROM PLAYERS' HANDS AND CHOSING ATTRIBUTE PLAYED
     while(!winner) {
         startGame ? cout << aiPlayers[playerTurn] << " will go first" : cout << "It's " << aiPlayers[playerTurn] << "'s turn";
         cout << endl << endl;
         headerLayout();
+        cout << setw(15) << left << aiPlayers[playerTurn];
         allPlayers[playerTurn].topCard();
         cout << endl << endl;
 
-        randomNumber = 5;
+        randomNumber = (rand() % 6) + 0;
         attribute = attributes[randomNumber];
         cout << "The chosen attribute is: " << attribute;
         cout << endl << endl;
@@ -85,15 +91,15 @@ int main() {
         headerLayout();
         
         for (int i = 0; i < players; i++) {
+            cout << setw(15) << left << aiPlayers[i];
             allPlayers[i].topCard();
             // PUSHING PLAYED CARDS INTO ROUND DECK
             round.inPlay(allPlayers[i]);
         }
-        system("pause");
-        system("cls");
+        cout << endl << endl;
         // COMPARING THE ATTRIBUTES AND FINDING A WINNER
         
-        for (int i = 0; i < round.sizeOfDeck(); i++) {
+        for (int i = 0; i < players; i++) {
             stats.push_back(allPlayers[i].battle(randomNumber));
             // REMOVING CARD FROM PLAYERS HAND
             allPlayers[i].removeCard();
@@ -107,21 +113,51 @@ int main() {
         cnt = count(stats.begin(), stats.end(), winningValue);
         auto it = find(stats.begin(), stats.end(), winningValue);
         if (cnt > 1) {
-            cout << "This round has resulted in a draw" << endl;
+            cout << "This round has resulted in a draw\n" << endl;
+            cout << "The cards will be given to whoever next wins a round" << endl;
+            playerLoop = players;
+            for (int i = 0; i < playerLoop; i++) {
+                for (int i = 0; i < playerLoop; i++) {
+                    if (allPlayers[i].sizeOfDeck() ==0) {
+                        allPlayers.erase(allPlayers.begin() + i);
+                        aiPlayers.erase(aiPlayers.begin() + i);
+                        players--;
+                    }
+                }
+            }
         }
         else {
             cout << aiPlayers[distance(stats.begin(), it)] << " wins this round and has taken the spoils!" << endl << endl;
             // PUSH CARDS INTO WINNING PLAYERS DECK
-            for (int i = 0; i < players; i++) {
+            roundDeckSize = round.sizeOfDeck();
+            for (int i = 0; i < roundDeckSize; i++) {
                 allPlayers[distance(stats.begin(), it)].inPlay(round);
                 round.removeCard();
             }
             cout << "Cards Remaining" << endl;
             cout << "=============" << endl;
             for (int i = 0; i < players; i++) {
-                cout << setw(10) << left << aiPlayers[i] << allPlayers[i].sizeOfDeck() << endl;
+                cout << setw(10) << left << aiPlayers[i] << allPlayers[i].sizeOfDeck();
+                allPlayers[i].sizeOfDeck() == 0 ? cout << " - Out of the game\n" : cout << endl;  
+            }
+            playerLoop = players;
+            for (int i = 0; i < playerLoop; i++) {
+                for (int i = 0; i < playerLoop; i++) {
+                    if (allPlayers[i].sizeOfDeck() ==0) {
+                        allPlayers.erase(allPlayers.begin() + i);
+                        aiPlayers.erase(aiPlayers.begin() + i);
+                        players--;
+                    }
+                }
+            }
+            cout << endl << endl;
+            cout << "PLAYERS LEFT" << endl;
+            cout << "=============" << endl;
+            for (auto n : aiPlayers) {
+                cout << n << endl;
             }
         }
+        cout << endl;
         system("pause");
         system("cls");
         playerTurn ++;
@@ -214,6 +250,7 @@ void pushCards(Deck &pack) {
     }
 }
 void headerLayout() {
+    cout << setw(15) << left << "Player";
     cout << setw(30) << left << "Name";
     cout << setw(30) << "Culture";
     cout << setw(16) << right << "Ring Resistance";
@@ -222,5 +259,5 @@ void headerLayout() {
     cout << setw(14) << "Ferocity";
     cout << setw(8) << "Magic";
     cout << setw(10) << "Height" << endl;
-    cout << setfill('=') << setw(130) << "" << setfill(' ') << endl;
+    cout << setfill('=') << setw(145) << "" << setfill(' ') << endl;
 }
