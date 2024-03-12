@@ -150,12 +150,9 @@ int main() {
                     }
                 }
             }
-            cout << endl << endl;
-            cout << "PLAYERS LEFT" << endl;
-            cout << "=============" << endl;
-            for (auto n : aiPlayers) {
-                cout << n << endl;
-            }
+        }
+        if (aiPlayers.size() == 1) {
+            winner = true;
         }
         cout << endl;
         system("pause");
@@ -167,6 +164,8 @@ int main() {
         stats.clear();
         startGame = false;
     }
+    cout << "WE HAVE A WINNER\n" << endl;
+    cout << aiPlayers[0] << " has taken all the cards and has won the game!" << endl;
     return 0;
 }
 
