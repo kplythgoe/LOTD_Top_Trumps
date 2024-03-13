@@ -24,27 +24,47 @@ void headerLayout();
 int main() {
     srand((unsigned) time(0));
     string attribute;
+    string userName;
     vector <string> attributes {"Resistance to Ring", "Age", "Resiliance", "Ferocity", "Magic", "Height"};
     int randomNumber;
     int playerTurn;
     int cnt;
     int roundDeckSize;
     int playerLoop;
+    int userChoice;
     vector <int> cardsUsed;
     vector <float> stats;
     int players = 5; // for now
     Deck cards;
     Deck round;
     vector<string> aiNames {"John", "Fred", "Billy", "Rachael", "Maeve", "Houghie"};
-    vector<string> aiPlayers;
+    vector<string> gamePlayers;
     bool winner = false;
     bool startGame = true;
     pushCards(cards);
-    cards.displayCards();
-    cout << endl << endl;
     // CREATING VECTOR OF AI PLAYERS
-    for (int i = 0; i < players; i++) {
-        aiPlayers.push_back(aiNames[i]);
+    cout << "Welcome to Top Trumps - The Lord of the Rings Edition!" << endl;
+    cout << "=====================================" << endl;
+    cout << "Do you know how to play Top Trumps?\n" << endl;
+    cout << "1. Yes" << endl;
+    cout << "2. No" << endl;
+    enterChoiceMessage();
+    choiceValidation(userChoice);
+    if (userChoice == 2) {
+        rules();
+    }
+    cout << endl;
+    system("pause");
+    system("cls");
+    cout << "Please enter your name: ";
+    cin >> userName;
+    gamePlayers.insert(gamePlayers.begin(), userName);
+    cout << "How many AI players do you want to play against? ";
+    cin >> players;
+    players++;
+    cout << "\nThere are " << players << " players including yourself" << endl;
+    for (int i = 0; i < players-1; i++) {
+        gamePlayers.push_back(aiNames[i]);
     }
     // DEAL THE CARDS - BY TAKING A RANDOM CARD FROM cards AND PUSHING TO A PLAYER DECK
     // CREATING DECKS BASED ON HOW MANY PLAYERS
@@ -66,20 +86,34 @@ int main() {
             allPlayers[j].deal(cards, randomNumber);
         }
     }
+    cout << endl;
     system("pause");
     system("cls");
     // RANDOMLY CHOSING WHICH PLAYER WILL GO FIRST (then will go in order)
     playerTurn = (rand() % players) + 0;
     // PLAY THE TOP CARD FROM PLAYERS' HANDS AND CHOSING ATTRIBUTE PLAYED
     while(!winner) {
-        startGame ? cout << aiPlayers[playerTurn] << " will go first" : cout << "It's " << aiPlayers[playerTurn] << "'s turn";
+        startGame ? cout << gamePlayers[playerTurn] << " will go first" : cout << "It's " << gamePlayers[playerTurn] << "'s turn";
         cout << endl << endl;
         headerLayout();
-        cout << setw(15) << left << aiPlayers[playerTurn];
+        cout << setw(15) << left << gamePlayers[playerTurn];
         allPlayers[playerTurn].topCard();
         cout << endl << endl;
-
-        randomNumber = (rand() % 6) + 0;
+        if (playerTurn == 0) {
+            cout << "It's your turn. Which attribute would you like to choose?\n" << endl;
+            cout << "1. Resistance to Ring" << endl;
+            cout << "2. Age" << endl;
+            cout << "3. Resilience" << endl;
+            cout << "4. Ferocity" << endl;
+            cout << "5. Magic" << endl;
+            cout << "6. Height" << endl;
+            cout << "\nEnter your chosen attribute from the numbers listed above: ";
+            cin >> randomNumber;
+            randomNumber -= 1;
+        }
+        else {
+            randomNumber = (rand() % 6) + 0;
+        }
         attribute = attributes[randomNumber];
         cout << "The chosen attribute is: " << attribute;
         cout << endl << endl;
@@ -91,7 +125,7 @@ int main() {
         headerLayout();
         
         for (int i = 0; i < players; i++) {
-            cout << setw(15) << left << aiPlayers[i];
+            cout << setw(15) << left << gamePlayers[i];
             allPlayers[i].topCard();
             // PUSHING PLAYED CARDS INTO ROUND DECK
             round.inPlay(allPlayers[i]);
@@ -120,14 +154,14 @@ int main() {
                 for (int i = 0; i < playerLoop; i++) {
                     if (allPlayers[i].sizeOfDeck() ==0) {
                         allPlayers.erase(allPlayers.begin() + i);
-                        aiPlayers.erase(aiPlayers.begin() + i);
+                        gamePlayers.erase(gamePlayers.begin() + i);
                         players--;
                     }
                 }
             }
         }
         else {
-            cout << aiPlayers[distance(stats.begin(), it)] << " wins this round and has taken the spoils!" << endl << endl;
+            cout << gamePlayers[distance(stats.begin(), it)] << " wins this round and has taken the spoils!" << endl << endl;
             // PUSH CARDS INTO WINNING PLAYERS DECK
             roundDeckSize = round.sizeOfDeck();
             for (int i = 0; i < roundDeckSize; i++) {
@@ -137,7 +171,7 @@ int main() {
             cout << "Cards Remaining" << endl;
             cout << "=============" << endl;
             for (int i = 0; i < players; i++) {
-                cout << setw(10) << left << aiPlayers[i] << allPlayers[i].sizeOfDeck();
+                cout << setw(10) << left << gamePlayers[i] << allPlayers[i].sizeOfDeck();
                 allPlayers[i].sizeOfDeck() == 0 ? cout << " - Out of the game\n" : cout << endl;  
             }
             playerLoop = players;
@@ -145,13 +179,13 @@ int main() {
                 for (int i = 0; i < playerLoop; i++) {
                     if (allPlayers[i].sizeOfDeck() ==0) {
                         allPlayers.erase(allPlayers.begin() + i);
-                        aiPlayers.erase(aiPlayers.begin() + i);
+                        gamePlayers.erase(gamePlayers.begin() + i);
                         players--;
                     }
                 }
             }
         }
-        if (aiPlayers.size() == 1) {
+        if (gamePlayers.size() == 1) {
             winner = true;
         }
         cout << endl;
@@ -165,7 +199,7 @@ int main() {
         startGame = false;
     }
     cout << "WE HAVE A WINNER\n" << endl;
-    cout << aiPlayers[0] << " has taken all the cards and has won the game!" << endl;
+    cout << gamePlayers[0] << " has taken all the cards and has won the game!" << endl;
     return 0;
 }
 
