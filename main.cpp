@@ -6,6 +6,7 @@
 #include <chrono>
 #include <thread>
 #include <ctime>
+#include <typeinfo>
 #include <cmath>
 #include <string>
 #include <map>
@@ -30,7 +31,6 @@ int main() {
     int playerTurn;
     int cnt;
     int roundDeckSize;
-    int playerLoop;
     int userChoice;
     vector <int> cardsUsed;
     vector <float> stats;
@@ -41,6 +41,7 @@ int main() {
     vector<string> gamePlayers;
     bool winner = false;
     bool startGame = true;
+    bool alive = true;
     pushCards(cards);
     // CREATING VECTOR OF AI PLAYERS
     cout << "Welcome to Top Trumps - The Lord of the Rings Edition!" << endl;
@@ -90,16 +91,22 @@ int main() {
     system("pause");
     system("cls");
     // RANDOMLY CHOSING WHICH PLAYER WILL GO FIRST (then will go in order)
-    playerTurn = (rand() % players) + 0;
+    playerTurn = (rand() % gamePlayers.size()) + 0;
     // PLAY THE TOP CARD FROM PLAYERS' HANDS AND CHOSING ATTRIBUTE PLAYED
     while(!winner) {
+        cout << "[ ";
+        for (auto name : gamePlayers) {
+            cout << name << " ";
+        }
+        cout << "]" << endl << endl;
+        cout << "Decks left in game: " << allPlayers.size() << endl << endl;
         startGame ? cout << gamePlayers[playerTurn] << " will go first" : cout << "It's " << gamePlayers[playerTurn] << "'s turn";
         cout << endl << endl;
         headerLayout();
         cout << setw(15) << left << gamePlayers[playerTurn];
         allPlayers[playerTurn].topCard();
         cout << endl << endl;
-        if (playerTurn == 0) {
+        if (playerTurn == 0 && alive) {
             cout << "It's your turn. Which attribute would you like to choose?\n" << endl;
             cout << "1. Resistance to Ring" << endl;
             cout << "2. Age" << endl;
@@ -124,7 +131,7 @@ int main() {
         cout << endl << endl;
         headerLayout();
         
-        for (int i = 0; i < players; i++) {
+        for (size_t i = 0; i < gamePlayers.size(); i++) {
             cout << setw(15) << left << gamePlayers[i];
             allPlayers[i].topCard();
             // PUSHING PLAYED CARDS INTO ROUND DECK
@@ -146,18 +153,32 @@ int main() {
         }
         cnt = count(stats.begin(), stats.end(), winningValue);
         auto it = find(stats.begin(), stats.end(), winningValue);
+        vector<string>::iterator playersIn = gamePlayers.begin();
+        vector<Deck>::iterator it2 = allPlayers.begin();
         if (cnt > 1) {
             cout << "This round has resulted in a draw\n" << endl;
             cout << "The cards will be given to whoever next wins a round" << endl;
-            playerLoop = players;
-            for (int i = 0; i < playerLoop; i++) {
-                for (int i = 0; i < playerLoop; i++) {
-                    if (allPlayers[i].sizeOfDeck() ==0) {
-                        allPlayers.erase(allPlayers.begin() + i);
-                        gamePlayers.erase(gamePlayers.begin() + i);
-                        players--;
-                    }
+            playersIn = gamePlayers.begin();
+            it2 = allPlayers.begin();
+            int counter = 0;
+            while (playersIn != gamePlayers.end()) {
+                if (allPlayers[counter].sizeOfDeck() == 0) {
+                    playersIn = gamePlayers.erase(playersIn);
+                    counter++;
+                    players--;
+                    continue;
                 }
+                counter++;
+                playersIn++;
+            }
+            counter = 0;
+            while(it2 != allPlayers.end()) {
+                if(allPlayers[counter].sizeOfDeck() == 0) {
+                    it2 = allPlayers.erase(it2);
+                    continue;
+                }
+                counter++;
+                it2++;
             }
         }
         else {
@@ -170,23 +191,48 @@ int main() {
             }
             cout << "Cards Remaining" << endl;
             cout << "=============" << endl;
-            for (int i = 0; i < players; i++) {
+            for (size_t i = 0; i < gamePlayers.size(); i++) {
                 cout << setw(10) << left << gamePlayers[i] << allPlayers[i].sizeOfDeck();
                 allPlayers[i].sizeOfDeck() == 0 ? cout << " - Out of the game\n" : cout << endl;  
             }
-            playerLoop = players;
-            for (int i = 0; i < playerLoop; i++) {
-                for (int i = 0; i < playerLoop; i++) {
-                    if (allPlayers[i].sizeOfDeck() ==0) {
-                        allPlayers.erase(allPlayers.begin() + i);
-                        gamePlayers.erase(gamePlayers.begin() + i);
-                        players--;
-                    }
+            // NEEDS WORK
+            // SECTION FROM HERE //////////////////////////////////
+            playersIn = gamePlayers.begin();
+            it2 = allPlayers.begin();
+            int counter;
+            counter = 0;
+            while (playersIn != gamePlayers.end()) {
+                if (allPlayers[counter].sizeOfDeck() == 0) {
+                    playersIn = gamePlayers.erase(playersIn);
+                    counter++;
+                    players--;
+                    continue;
                 }
+                counter++;
+                playersIn++;
             }
+            counter = 0;
+            while(it2 != allPlayers.end()) {
+                if(allPlayers[counter].sizeOfDeck() == 0) {
+                    it2 = allPlayers.erase(it2);
+                    continue;
+                }
+                counter++;
+                it2++;
+            }
+            cout << endl << endl;
+        }
+        cout << endl << endl << endl;
+        cout << "PLAYERS LEFT" << endl;
+        cout << "============" << endl;
+        for (auto player : gamePlayers) {
+            cout << player << endl;
         }
         if (gamePlayers.size() == 1) {
             winner = true;
+            cout << "\nWINNER IS" << endl;
+            cout << "============" << endl;
+            cout << gamePlayers[0] << endl;
         }
         cout << endl;
         system("pause");
