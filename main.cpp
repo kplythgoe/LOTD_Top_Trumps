@@ -37,7 +37,7 @@ int main() {
     int players = 5; // for now
     Deck cards;
     Deck round;
-    vector<string> aiNames {"John", "Fred", "Billy", "Rachael", "Maeve", "Houghie"};
+    vector<string> aiNames {"John", "Fred", "Billy", "Maeve", "Houghie"};
     vector<string> gamePlayers;
     bool winner = false;
     bool startGame = true;
@@ -163,6 +163,9 @@ int main() {
             int counter = 0;
             while (playersIn != gamePlayers.end()) {
                 if (allPlayers[counter].sizeOfDeck() == 0) {
+                    if (counter == 0) {
+                        alive = false;
+                    }
                     playersIn = gamePlayers.erase(playersIn);
                     counter++;
                     players--;
@@ -203,6 +206,9 @@ int main() {
             counter = 0;
             while (playersIn != gamePlayers.end()) {
                 if (allPlayers[counter].sizeOfDeck() == 0) {
+                    if (counter == 0) {
+                        alive = false;
+                    }
                     playersIn = gamePlayers.erase(playersIn);
                     counter++;
                     players--;
