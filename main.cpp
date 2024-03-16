@@ -21,6 +21,7 @@ void enterChoiceMessage();
 void choiceValidation(int &userChoice);
 void pushCards(Deck &pack);
 void headerLayout();
+void deleteLoser(vector<string> &gamePlayers, vector<Deck> &allPlayers, bool &alive, float &players);
 
 int main() {
     srand((unsigned) time(0));
@@ -34,10 +35,10 @@ int main() {
     int userChoice;
     vector <int> cardsUsed;
     vector <float> stats;
-    int players = 5; // for now
+    float players; // for now
     Deck cards;
     Deck round;
-    vector<string> aiNames {"John", "Fred", "Billy", "Maeve", "Houghie"};
+    vector<string> aiNames {"John", "Fred", "Billy", "Maeve", "Houghie", "Stan", "Nadia", "Annie"};
     vector<string> gamePlayers;
     bool winner = false;
     bool startGame = true;
@@ -75,8 +76,11 @@ int main() {
         allPlayers.push_back(player);
     }
     // DEALING CARDS FROM CARDS DECK
-    for (int i = 0; i < cards.sizeOfDeck()/players; i++) {
-        for (int j = 0; j < players; j++) {
+    for (int i = 0; i < ceil(cards.sizeOfDeck()/players); i++) {
+        for (size_t j = 0; j < players; j++) {
+            if (cardsUsed.size() == cards.sizeOfDeck()) {
+                break;
+            }
             randomNumber = (rand() % cards.sizeOfDeck()) + 0;
             cnt = count(cardsUsed.begin(), cardsUsed.end(), randomNumber);
             while (cnt > 0) {
@@ -90,6 +94,15 @@ int main() {
     cout << endl;
     system("pause");
     system("cls");
+    cout << ceil(cards.sizeOfDeck()/players) << endl;
+    cout << cardsUsed.size() << endl;
+    cout << cards.sizeOfDeck() << endl << endl;
+    for (int i = 0; i < players; i++) {
+        cout << gamePlayers[i] << endl;
+        cout << "============" << endl;
+        allPlayers[i].displayCards();
+        cout << endl << endl;
+    }
     // RANDOMLY CHOSING WHICH PLAYER WILL GO FIRST (then will go in order)
     playerTurn = (rand() % gamePlayers.size()) + 0;
     // PLAY THE TOP CARD FROM PLAYERS' HANDS AND CHOSING ATTRIBUTE PLAYED
@@ -153,36 +166,10 @@ int main() {
         }
         cnt = count(stats.begin(), stats.end(), winningValue);
         auto it = find(stats.begin(), stats.end(), winningValue);
-        vector<string>::iterator playersIn = gamePlayers.begin();
-        vector<Deck>::iterator it2 = allPlayers.begin();
         if (cnt > 1) {
             cout << "This round has resulted in a draw\n" << endl;
             cout << "The cards will be given to whoever next wins a round" << endl;
-            playersIn = gamePlayers.begin();
-            it2 = allPlayers.begin();
-            int counter = 0;
-            while (playersIn != gamePlayers.end()) {
-                if (allPlayers[counter].sizeOfDeck() == 0) {
-                    if (counter == 0) {
-                        alive = false;
-                    }
-                    playersIn = gamePlayers.erase(playersIn);
-                    counter++;
-                    players--;
-                    continue;
-                }
-                counter++;
-                playersIn++;
-            }
-            counter = 0;
-            while(it2 != allPlayers.end()) {
-                if(allPlayers[counter].sizeOfDeck() == 0) {
-                    it2 = allPlayers.erase(it2);
-                    continue;
-                }
-                counter++;
-                it2++;
-            }
+            deleteLoser(gamePlayers, allPlayers, alive, players);
         }
         else {
             cout << gamePlayers[distance(stats.begin(), it)] << " wins this round and has taken the spoils!" << endl << endl;
@@ -200,32 +187,7 @@ int main() {
             }
             // NEEDS WORK
             // SECTION FROM HERE //////////////////////////////////
-            playersIn = gamePlayers.begin();
-            it2 = allPlayers.begin();
-            int counter;
-            counter = 0;
-            while (playersIn != gamePlayers.end()) {
-                if (allPlayers[counter].sizeOfDeck() == 0) {
-                    if (counter == 0) {
-                        alive = false;
-                    }
-                    playersIn = gamePlayers.erase(playersIn);
-                    counter++;
-                    players--;
-                    continue;
-                }
-                counter++;
-                playersIn++;
-            }
-            counter = 0;
-            while(it2 != allPlayers.end()) {
-                if(allPlayers[counter].sizeOfDeck() == 0) {
-                    it2 = allPlayers.erase(it2);
-                    continue;
-                }
-                counter++;
-                it2++;
-            }
+            deleteLoser(gamePlayers, allPlayers, alive, players);
             cout << endl << endl;
         }
         cout << endl << endl << endl;
@@ -345,4 +307,34 @@ void headerLayout() {
     cout << setw(8) << "Magic";
     cout << setw(10) << "Height" << endl;
     cout << setfill('=') << setw(145) << "" << setfill(' ') << endl;
+}
+
+void deleteLoser(vector<string> &gamePlayers, vector<Deck> &allPlayers, bool &alive, float &players)  {
+    vector<string>::iterator playersIn = gamePlayers.begin();
+    vector<Deck>::iterator it2 = allPlayers.begin();
+    playersIn = gamePlayers.begin();
+    it2 = allPlayers.begin();
+    int counter = 0;
+    while (playersIn != gamePlayers.end()) {
+        if (allPlayers[counter].sizeOfDeck() == 0) {
+            if (counter == 0) {
+                alive = false;
+            }
+            playersIn = gamePlayers.erase(playersIn);
+            counter++;
+            players--;
+            continue;
+        }
+        counter++;
+        playersIn++;
+    }
+    counter = 0;
+    while(it2 != allPlayers.end()) {
+        if(allPlayers[counter].sizeOfDeck() == 0) {
+            it2 = allPlayers.erase(it2);
+            continue;
+        }
+        counter++;
+        it2++;
+    }
 }
